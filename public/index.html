@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-ar="مرحبًا بك" data-en="Welcome">مرحبًا بك</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <div class="top-buttons">
+    <button id="language-toggle" class="language-btn">
+      <i class="fas fa-globe"></i>
+      <span class="lang-text">EN</span>
+    </button>
+  </div>
+  <div id="notification-container"></div>
+
+  <div class="login-wrapper">
+    <h1 data-ar="مرحبًا بك في تطبيق القفل الذكي " data-en="Welcome to Smart Lock App">
+      مرحبًا بك في تطبيق القفل الذكي
+    </h1>
+    <button class="btn" id="btn-login" data-ar="دخول" data-en="Login">
+      <i class="fas fa-sign-in-alt"></i>
+      <span data-ar="دخول" data-en="Login">دخول</span>
+    </button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>

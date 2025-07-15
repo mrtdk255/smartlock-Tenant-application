@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-ar="إدخال رمز الدخول" data-en="Enter Access Code">إدخال رمز الدخول</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+<body>
+  <div class="top-buttons">
+    <button id="language-toggle" class="language-btn">
+      <i class="fas fa-globe"></i>
+      <span class="lang-text">EN</span>
+    </button>
+  </div>
+  <div id="notification-container"></div>
+
+  <div class="container">
+    <h2 data-ar="إدخال رمز الدخول" data-en="Enter Access Code">إدخال رمز الدخول</h2>
+    <form id="codeForm">
+      <label for="boxNumberCode" data-ar="رقم الصندوق:" data-en="Box Number:">رقم الصندوق:</label>
+      <input type="text" id="boxNumberCode" required
+             placeholder="أدخل رقم الصندوق"
+             data-ar-placeholder="أدخل رقم الصندوق"
+             data-en-placeholder="Enter box number" />
+
+      <label for="code" data-ar="أدخل رمز الدخول:" data-en="Enter Access Code:">أدخل رمز الدخول:</label>
+      <input type="text" id="code" required
+             placeholder="أدخل الرمز هنا"
+             data-ar-placeholder="أدخل الرمز هنا"
+             data-en-placeholder="Enter code here" />
+
+      <button type="submit"
+              class="btn"
+              id="verifyCodeButton"
+              data-ar="تحقق"
+              data-en="Verify">
+        <i class="fas fa-check"></i>
+        <span data-ar="تحقق" data-en="Verify">تحقق</span>
+      </button>
+
+      <button type="button"
+              class="btn"
+              id="resetCodeButton"
+              style="display: none;"
+              data-ar="إعادة تعيين رمز جديد"
+              data-en="Reset Code">
+        <i class="fas fa-redo"></i>
+        <span data-ar="إعادة تعيين رمز جديد" data-en="Reset Code">إعادة تعيين رمز جديد</span>
+      </button>
+    </form>
+
+    <div id="codeMessage"></div>
+
+    <button class="btn"
+            id="unlockButton"
+            style="display: none;"
+            data-ar="فتح القفل"
+            data-en="Unlock">
+      <i class="fas fa-unlock-alt"></i>
+      <span data-ar="فتح القفل" data-en="Unlock">فتح القفل</span>
+    </button>
+
+    <button class="btn"
+            id="btn-back"
+            data-ar="عودة"
+            data-en="Back">
+      <i class="fas fa-arrow-right"></i>
+      <span data-ar="عودة" data-en="Back">عودة</span>
+    </button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+/* ====== عام ====== */
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  overflow-y: auto;
+  background: url('background1.gif') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  color: black;
+}
+
+/* ====== الشريط العلوي (زر اللغة) ====== */
+.top-buttons {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+  z-index: 1002;
+}
+.language-btn {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+.language-btn i {
+  font-size: 16px;
+}
+.language-btn:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.05);
+}
+.lang-text {
+  user-select: none;
+}
+
+/* ====== إشعارات Toast موحدة ====== */
+#notification-container {
+  position: fixed !important;
+  top: 60px !important;
+  bottom: auto !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  z-index: 1001;
+}
+.notification {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  min-width: 200px;
+  max-width: 400px;
+}
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.notification-icon {
+  font-size: 18px;
+}
+
+/* ====== إشعار صفحة reset_code.html (في حال استخدام #alert) ====== */
+#alert {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  z-index: 1003;
+  display: none;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#alert.success {
+  background-color: #28a745;
+}
+#alert.error {
+  background-color: #dc3545;
+}
+
+/* ====== الحاويات الرئيسية ====== */
+.container,
+.login-wrapper,
+.tenant-container {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  padding: 35px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 380px;
+  margin: 25px 0;
+  position: relative;
+}
+
+/* ====== الأزرار العامة ====== */
+.btn,
+button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #00ffcc, #0044cc);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+.btn i,
+button i {
+  margin-right: 8px;
+}
+.btn:hover,
+button:hover {
+  background: linear-gradient(135deg, #00ccaa, #0033aa);
+  transform: scale(1.05);
+}
+
+/* ====== زر بديل (مثل زر الرجوع) ====== */
+.alt-btn {
+  background: rgba(255, 255, 255, 0.3);
+  color: #222;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s;
+}
+.alt-btn:hover {
+  background: rgba(255, 255, 255, 0.5);
+  color: black;
+  transform: scale(1.03);
+}
+
+/* ====== الحقول ====== */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.25);
+  color: #000;
+  font-size: 16px;
+  text-align: center;
+  direction: rtl;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+input::placeholder {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* ====== تجاوز أي قواعد سابقة ====== */
+#notification-container,
+#alert {
+  top: 60px !important;
+  bottom: auto !important;
+}
