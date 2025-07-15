@@ -1,0 +1,20 @@
+{
+  "name": "smartlock-app",
+  "version": "1.0.0",
+  "description": "Smart lock application using Firebase, HTML, CSS, JS, Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "firebase-admin": "^13.4.0",
+    "nodemailer": "^7.0.3"
+  },
+  "keywords": []
+}
