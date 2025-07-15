@@ -18,6 +18,7 @@ admin.initializeApp({
 const db = admin.database();
 
 const app  = express();
+// التعديل هنا: استخدم process.env.PORT أولاً، وإن لم يوجد استخدم 3000
 const port = process.env.PORT || 3000;
 
 app.use(cors());
@@ -83,6 +84,7 @@ app.post('/reset-request', async (req, res) => {
   }
 });
 
+// هنا التعديل النهائي لتشغيل السيرفر على منفذ Render:
 app.listen(port, () => {
   console.log(`🚀 Server running at: http://localhost:${port}`);
 });
