@@ -136,7 +136,7 @@ function showNotification(keyOrMsg, type = "success", data = {}) {
 // ====== عداد المحاولات ======
 let failedAttempts = 0;
 
-// ====== التحقق من الرمز (معدل لإضافة التحقق من الصلاحية) ======
+// ====== التحقق من الرمز ======
 function verifyAccessCode() {
   const box = document.getElementById("boxNumberCode").value.trim();
   const code = document.getElementById("code").value.trim();
@@ -151,7 +151,6 @@ function verifyAccessCode() {
       if (snap.exists()) {
         const val = snap.val();
         if (val.boxNumber === box) {
-          // تحقق من الصلاحية
           if (val.expiration) {
             const expDate = new Date(val.expiration);
             const now = new Date();
@@ -160,61 +159,46 @@ function verifyAccessCode() {
               return;
             }
           }
-          // ✔️ كود صحيح وصلاحيته سارية أو بدون تاريخ صلاحية
           msgEl.textContent = translations[currentLanguage].codeVerified;
           document.getElementById("unlockButton").style.display = "block";
         } else {
-          failedAttempts++;
-          msgEl.textContent = translations[currentLanguage].codeInvalid;
-          if (failedAttempts >= 2) {
-            ["boxNumberCode", "code", "verifyCodeButton"].forEach(id => {
-              document.getElementById(id).disabled = true;
-            });
-            document.getElementById("resetCodeButton").style.display = "block";
-            const sec = 30;
-            showNotification("retryAfter", "error", { sec });
-            setTimeout(() => {
-              failedAttempts = 0;
-              ["boxNumberCode", "code", "verifyCodeButton"].forEach(id => {
-                document.getElementById(id).disabled = false;
-              });
-              document.getElementById("resetCodeButton").style.display = "none";
-            }, sec * 1000);
-          }
+          handleFailedAttempt(msgEl);
         }
       } else {
-        failedAttempts++;
-        msgEl.textContent = translations[currentLanguage].codeInvalid;
-        if (failedAttempts >= 2) {
-          ["boxNumberCode", "code", "verifyCodeButton"].forEach(id => {
-            document.getElementById(id).disabled = true;
-          });
-          document.getElementById("resetCodeButton").style.display = "block";
-          const sec = 30;
-          showNotification("retryAfter", "error", { sec });
-          setTimeout(() => {
-            failedAttempts = 0;
-            ["boxNumberCode", "code", "verifyCodeButton"].forEach(id => {
-              document.getElementById(id).disabled = false;
-            });
-            document.getElementById("resetCodeButton").style.display = "none";
-          }, sec * 1000);
-        }
+        handleFailedAttempt(msgEl);
       }
     })
     .catch(() => showNotification("codeVerifyError", "error"));
 }
 
-// ====== فتح القفل + حذف بعد دقيقة (فرونت فقط) ======
+function handleFailedAttempt(msgEl) {
+  failedAttempts++;
+  msgEl.textContent = translations[currentLanguage].codeInvalid;
+  if (failedAttempts >= 2) {
+    ["boxNumberCode", "code", "verifyCodeButton"].forEach(id => {
+      document.getElementById(id).disabled = true;
+    });
+    document.getElementById("resetCodeButton").style.display = "block";
+    const sec = 30;
+    showNotification("retryAfter", "error", { sec });
+    setTimeout(() => {
+      failedAttempts = 0;
+      ["boxNumberCode", "code", "verifyCodeButton"].forEach(id => {
+        document.getElementById(id).disabled = false;
+      });
+      document.getElementById("resetCodeButton").style.display = "none";
+    }, sec * 1000);
+  }
+}
+
+// ====== فتح القفل ======
 function unlockBox() {
   const box = document.getElementById("boxNumberCode").value.trim();
-
   if (!box) {
     return showNotification("enterBoth", "error");
   }
 
   const commandString = "unlock" + box;
-
   const unlockCommandData = {
     command: commandString,
     timestamp: firebase.database.ServerValue.TIMESTAMP
@@ -225,12 +209,8 @@ function unlockBox() {
     .then(() => {
       showNotification(translations[currentLanguage].codeVerified, "success");
       document.getElementById("unlockButton").style.display = "none";
-
-      // 🕒 حذف مؤقت من الفرونت بعد دقيقة
       setTimeout(() => {
-        ref.remove()
-          .then(() => console.log("🗑️ تم حذف unlock بعد دقيقة (من الفرونت)"))
-          .catch(err => console.error("❌ فشل الحذف:", err.message));
+        ref.remove().then(() => console.log("🗑️ تم حذف unlock بعد دقيقة"));
       }, 60000);
     })
     .catch(() => {
@@ -321,6 +301,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if (backBtn) {
     backBtn.addEventListener("click", () => {
       window.location.href = "index.html";
+    });
+  }
+
+  // ✅ زر العودة الجديد
+  const backButton = document.getElementById("btn-back");
+  if (backButton) {
+    backButton.addEventListener("click", () => {
+      window.history.back();
     });
   }
 });
